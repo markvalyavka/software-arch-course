@@ -34,8 +34,7 @@ if __name__ == "__main__":
     )
     print("Connected.")
     q = client.get_queue("my-queue").blocking()
-    # q.destroy()
-    # sys.exit(1)
+
     run_as = sys.argv[1]
     rus_as_by_func = {
         "producer": run_producer,

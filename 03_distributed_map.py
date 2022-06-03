@@ -10,6 +10,5 @@ if __name__ == "__main__":
 
     for i in range(1000):
         dist_map.put(f"{i}", i)
-        # dist_map.delete(f"{i}")
 
     print("Finished")
