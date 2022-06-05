@@ -1,0 +1,43 @@
+version: "3.0"
+services:
+  facade_service:
+    build: ../facade_service
+    ports:
+      - "5001:5001"
+    volumes:
+      - "../facade_service/facade_service:/app/facade_service"
+    container_name: facade-service-1
+    environment:
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - logging_service-1
+      - logging_service-2
+      - logging_service-3
+  logging_service-1:
+    build: ../logging_service
+    volumes:
+      - "../logging_service/logging_service:/app/logging_service"
+    container_name: logging-service-1
+    environment:
+      - PYTHONUNBUFFERED=1
+  logging_service-2:
+    build: ../logging_service
+    volumes:
+      - "../logging_service/logging_service:/app/logging_service"
+    container_name: logging-service-2
+    environment:
+      - PYTHONUNBUFFERED=1
+  logging_service-3:
+    build: ../logging_service
+    volumes:
+      - "../logging_service/logging_service:/app/logging_service"
+    container_name: logging-service-3
+    environment:
+      - PYTHONUNBUFFERED=1
+  messages_service:
+    build: ../messages_service
+    volumes:
+      - "../messages_service/messages_service:/app/messages_service"
+    container_name: messages-service-1
+    environment:
+         - PYTHONUNBUFFERED=1
