@@ -11,7 +11,7 @@ sqlite_db.init_app()
 
 if __name__ == "__main__":
 
-    # start consumer in a new thread
+    # start consumer in a new process
     thread = Process(target=mq_consumer.start_consuming)
     thread.start()
     app.run(debug=True, host="0.0.0.0", port=5003)

@@ -14,7 +14,6 @@ class SqliteClient:
 
     def read_all_messages(self):
         messages = self._cur.execute("select * from messages").fetchall()
-        print("YO", messages)
         return messages
 
     def insert_message(self, msg_w_uuid):

@@ -20,7 +20,7 @@ def logging():
         msg_content = request_params.get("message")
         message_map.put(msg_uuid, msg_content)
 
-        print({
+        print("Received: ",{
             'message': msg_content,
             'uuid': msg_uuid
         })
