@@ -15,6 +15,7 @@ class HazelcastClient:
             ],
             cluster_name=app.config['HAZELCAST_CLIENT_CLUSTER_NAME']
         )
+        print("Successfully connected to hazelcast cluster.")
         logging.info("Successfully connected to hazelcast cluster.")
         self._client = client
 

@@ -1,8 +1,10 @@
 from messages_service.messages import messages
+from messages_service.sqllite import sqlite_db
 
 
 @messages.route("/messages-service")
 def messages():
+    print(sqlite_db.read_all_messages())
     return {
-        "messages": "Not implemented yet!"
+        "messages": sqlite_db.read_all_messages()
     }

@@ -1,5 +1,5 @@
 import logging
-
+import random
 import requests
 from abc import ABC, abstractmethod
 from urllib.parse import urljoin
@@ -39,9 +39,6 @@ class BaseGateway(ABC):
             return response_json
         except requests.exceptions.HTTPError:
             raise GatewayException
-        except Exception:
-            logging.error("Error!")
-            print("error!")
 
     @staticmethod
     def _post(url, payload, timeout=DEFAULT_REQUEST_TIMEOUT):
@@ -56,6 +53,7 @@ class BaseGateway(ABC):
             return response_json
         except requests.exceptions.HTTPError:
             raise GatewayException
-        except Exception:
-            logging.error("Error!")
-            print("error!")
+
+    def _build_random_url(self, endpoint):
+        url = urljoin(random.choice(self.base_paths), endpoint)
+        return url

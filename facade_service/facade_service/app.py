@@ -3,6 +3,7 @@ from flask import Flask, jsonify
 from facade_service.facade import facade
 from facade_service.gateways.logging_gateway import logging_gateway
 from facade_service.gateways.messages_gateway import messages_gateway
+from facade_service.rabbitmq import mq
 
 
 def init_app():
@@ -14,6 +15,10 @@ def init_app():
     # init app
     logging_gateway.init_gateway(app)
     messages_gateway.init_gateway(app)
+
+    # init apps
+
+    mq.init_app(app)
 
     # register blueprints
     app.register_blueprint(facade)

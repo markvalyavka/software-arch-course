@@ -32,10 +32,6 @@ class LoggingGateway(BaseGateway):
         )
         return response
 
-    def _build_random_url(self, endpoint):
-        url = urljoin(random.choice(self.base_paths), endpoint)
-        return url
-
 
 logging_gateway = LoggingGateway()
 

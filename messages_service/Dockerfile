@@ -8,6 +8,10 @@ RUN pip3 install -r requirements.txt
 
 COPY runserver.py runserver.py
 
+COPY consumer.py consumer.py
+
+COPY config.py config.py
+
 COPY ./messages_service /app/messages_service
 
 CMD ["python3", "runserver.py"]

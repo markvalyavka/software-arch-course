@@ -13,6 +13,7 @@ services:
       - logging_service-1
       - logging_service-2
       - logging_service-3
+      - rabbitmq
   logging_service-1:
     build: ../logging_service
     volumes:
@@ -34,10 +35,28 @@ services:
     container_name: logging-service-3
     environment:
       - PYTHONUNBUFFERED=1
-  messages_service:
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    hostname: "rabbit-host"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    container_name: my-rabbitmq
+  messages_service-1:
     build: ../messages_service
     volumes:
       - "../messages_service/messages_service:/app/messages_service"
     container_name: messages-service-1
     environment:
-         - PYTHONUNBUFFERED=1
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - rabbitmq
+  messages_service-2:
+    build: ../messages_service
+    volumes:
+      - "../messages_service/messages_service:/app/messages_service"
+    container_name: messages-service-2
+    environment:
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - rabbitmq
