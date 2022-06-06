@@ -1,2 +1,4 @@
 # software-arch-course
-HW's 2-5 for Software Arch course UCU
+
+
+### watch demo on YT -> https://youtu.be/6l2tjHNkuFg
