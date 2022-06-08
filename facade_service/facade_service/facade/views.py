@@ -6,6 +6,7 @@ from facade_service.facade import facade, helpers
 from facade_service.gateways.logging_gateway import logging_gateway
 from facade_service.gateways.messages_gateway import messages_gateway
 from facade_service.rabbitmq import mq
+from facade_service.consul_api import c
 
 
 @facade.route("/facade-service", methods=["GET", "POST"])
@@ -30,7 +31,7 @@ def facade_service():
         msg_with_uuid = helpers.create_message(msg)
         logging_gateway.send_message(msg_with_uuid)
         mq.publish_msg(
-            rk='msgs',
+            rk=c.get_kv('RABBITMQ_QUEUE_NAME'),
             msg_body=json.dumps(msg_with_uuid)
         )
         return {

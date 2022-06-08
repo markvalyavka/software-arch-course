@@ -1,3 +1,4 @@
 Flask==2.0.3
 hazelcast-python-client==5.1
+python-consul2==0.1.5
 

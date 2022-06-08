@@ -1,31 +1,18 @@
-import logging
 import random
 import requests
-from abc import ABC, abstractmethod
 from urllib.parse import urljoin
+
+from facade_service.consul_api import c
 
 
 class GatewayException(Exception):
     pass
 
 
-class BaseGateway(ABC):
+class BaseGateway:
 
     # 15 sec timeout
     DEFAULT_REQUEST_TIMEOUT = 15
-
-    def __init__(self, app=None):
-        self.base_path = None
-        if app is not None:
-            self.init_gateway(app)
-
-    @abstractmethod
-    def init_gateway(self, app):
-        raise NotImplementedError
-
-    def _build_url(self, endpoint):
-        url = urljoin(self.base_path, endpoint)
-        return url
 
     @staticmethod
     def _get(url, timeout=DEFAULT_REQUEST_TIMEOUT):
@@ -54,6 +41,7 @@ class BaseGateway(ABC):
         except requests.exceptions.HTTPError:
             raise GatewayException
 
-    def _build_random_url(self, endpoint):
-        url = urljoin(random.choice(self.base_paths), endpoint)
+    @staticmethod
+    def _build_random_url(hosts, endpoint):
+        url = urljoin(random.choice(hosts), endpoint)
         return url

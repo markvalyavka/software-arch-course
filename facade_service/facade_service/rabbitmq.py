@@ -1,5 +1,8 @@
-import pika
 import time
+
+import pika
+
+from facade_service.consul_api import c
 
 
 class RabbitMqClient:
@@ -9,17 +12,17 @@ class RabbitMqClient:
         self._channel = None
 
     def init_app(self, app):
-        print("Sleeping for 5 sec before MQ connection.")
-        time.sleep(5)
+        print("Sleeping for 10 sec before MQ connection.")
+        time.sleep(10)
         self._conn = pika.BlockingConnection(
-             pika.ConnectionParameters(host=app.config['RABBITMQ_URL'],
+             pika.ConnectionParameters(host=c.get_kv('RABBITMQ_URL'),
                                        port=5672)
         )
         self._channel = self._conn.channel()
         self.declare_queues()
 
     def declare_queues(self):
-        self._channel.queue_declare(queue='msgs')
+        self._channel.queue_declare(queue=c.get_kv('RABBITMQ_QUEUE_NAME'))
 
     @property
     def channel(self):

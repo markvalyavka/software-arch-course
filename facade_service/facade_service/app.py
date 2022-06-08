@@ -1,9 +1,10 @@
+import os
+
 from flask import Flask, jsonify
 
 from facade_service.facade import facade
-from facade_service.gateways.logging_gateway import logging_gateway
-from facade_service.gateways.messages_gateway import messages_gateway
 from facade_service.rabbitmq import mq
+from facade_service.consul_api import c
 
 
 def init_app():
@@ -12,12 +13,15 @@ def init_app():
     # load config
     app.config.from_object('facade_service.config.DebugConfig')
 
-    # init app
-    logging_gateway.init_gateway(app)
-    messages_gateway.init_gateway(app)
+    # consul
+    c.init_app(app)
+    c.register_service(
+        ip=c.get_host_ip(),
+        port=5001,
+        service_id=os.environ['SERVICE_ID']
+    )
 
     # init apps
-
     mq.init_app(app)
 
     # register blueprints

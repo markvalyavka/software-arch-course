@@ -9,6 +9,7 @@ services:
     container_name: facade-service-1
     environment:
       - PYTHONUNBUFFERED=1
+      - SERVICE_ID=1
     depends_on:
       - logging_service-1
       - logging_service-2
@@ -21,6 +22,7 @@ services:
     container_name: logging-service-1
     environment:
       - PYTHONUNBUFFERED=1
+      - SERVICE_ID=1
   logging_service-2:
     build: ../logging_service
     volumes:
@@ -28,6 +30,7 @@ services:
     container_name: logging-service-2
     environment:
       - PYTHONUNBUFFERED=1
+      - SERVICE_ID=2
   logging_service-3:
     build: ../logging_service
     volumes:
@@ -35,6 +38,7 @@ services:
     container_name: logging-service-3
     environment:
       - PYTHONUNBUFFERED=1
+      - SERVICE_ID=3
   rabbitmq:
     image: "rabbitmq:3-management"
     hostname: "rabbit-host"
@@ -49,6 +53,7 @@ services:
     container_name: messages-service-1
     environment:
       - PYTHONUNBUFFERED=1
+      - SERVICE_ID=1
     depends_on:
       - rabbitmq
   messages_service-2:
@@ -58,5 +63,6 @@ services:
     container_name: messages-service-2
     environment:
       - PYTHONUNBUFFERED=1
+      - SERVICE_ID=2
     depends_on:
       - rabbitmq

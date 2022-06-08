@@ -2,6 +2,8 @@ import logging
 
 import hazelcast
 
+from logging_service.consul_api import c
+
 
 class HazelcastClient:
     def __init__(self):
@@ -11,9 +13,9 @@ class HazelcastClient:
     def init_app(self, app):
         client = hazelcast.HazelcastClient(
             cluster_members=[
-                app.config['HAZELCAST_CLIENT_URL'],
+                c.get_kv('HAZELCAST_CLIENT_URL'),
             ],
-            cluster_name=app.config['HAZELCAST_CLIENT_CLUSTER_NAME']
+            cluster_name=c.get_kv('HAZELCAST_CLIENT_CLUSTER_NAME'),
         )
         print("Successfully connected to hazelcast cluster.")
         logging.info("Successfully connected to hazelcast cluster.")

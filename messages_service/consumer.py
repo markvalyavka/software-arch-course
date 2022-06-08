@@ -3,7 +3,7 @@ import time
 
 import pika
 
-import config as cfg
+from messages_service.consul_api import c
 
 from messages_service.sqllite import sqlite_db
 
@@ -19,7 +19,7 @@ class RabbitMqClient:
         time.sleep(10)
         self._conn = pika.BlockingConnection(
              pika.ConnectionParameters(
-                 host=cfg.DebugConfig.RABBITMQ_URL
+                 host=c.get_kv('RABBITMQ_URL')
              )
         )
         self._channel = self._conn.channel()
@@ -42,7 +42,7 @@ class RabbitMqClient:
     def start_consuming(self):
 
         self._channel.basic_consume(
-            queue='msgs',
+            queue=c.get_kv('RABBITMQ_QUEUE_NAME'),
             on_message_callback=RabbitMqClient.msg_recv_callback,
             auto_ack=True
         )

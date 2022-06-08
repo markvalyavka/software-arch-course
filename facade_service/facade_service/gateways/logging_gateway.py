@@ -1,34 +1,36 @@
-import random
-from urllib.parse import urljoin
-
 from facade_service.gateways.base_gateway import BaseGateway
-
+from facade_service.consul_api import c
 
 DEFAULT_LOGGING_ENDPOINT = "/logging-service"
 
 
 class LoggingGateway(BaseGateway):
 
-    def __init__(self, app=None):
-        self.base_paths = None
-        super(LoggingGateway, self).__init__(app)
+    def get_random_logging_service_url(self, endpoint):
 
-    def init_gateway(self, app):
-        self.base_paths = [
-            app.config['LOGGING_SERVICE_GATEWAY_1'],
-            app.config['LOGGING_SERVICE_GATEWAY_2'],
-            app.config['LOGGING_SERVICE_GATEWAY_3'],
-        ]
+        healthy_services = c.discover_services("logging_service")
+        #healthy_services = ["http://messages_service-1"]
+        print("---------------------------------")
+        print(f"Healthy logging services: {healthy_services}")
+        url = self._build_random_url(
+            hosts=healthy_services,
+            endpoint=endpoint
+        )
+        print(f"Chosen: ", url)
+        print("---------------------------------")
+        return url
 
     def send_message(self, message):
+        url = self.get_random_logging_service_url(DEFAULT_LOGGING_ENDPOINT)
         self._post(
-            url=self._build_random_url(endpoint=DEFAULT_LOGGING_ENDPOINT),
+            url=url,
             payload=message
         )
 
     def get_messages(self):
+        url = self.get_random_logging_service_url(DEFAULT_LOGGING_ENDPOINT)
         response = self._get(
-            url=self._build_random_url(endpoint=DEFAULT_LOGGING_ENDPOINT)
+            url=url
         )
         return response
 

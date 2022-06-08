@@ -1,0 +1,22 @@
+[        
+        {
+                "key": "RABBITMQ_URL",
+                "flags": 0,
+                "value": "aG9zdC5kb2NrZXIuaW50ZXJuYWw="
+        },
+        {
+                "key": "HAZELCAST_CLIENT_URL",
+                "flags": 0,
+                "value": "aG9zdC5kb2NrZXIuaW50ZXJuYWw="
+        },
+        {
+                "key": "HAZELCAST_CLIENT_CLUSTER_NAME",
+                "flags": 0,
+                "value": "ZGV2"
+        },
+        {
+                "key": "RABBITMQ_QUEUE_NAME",
+                "flags": 0,
+                "value": "bXNncw=="
+        }
+]

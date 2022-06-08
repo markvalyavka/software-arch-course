@@ -10,7 +10,7 @@ COPY runserver.py runserver.py
 
 COPY consumer.py consumer.py
 
-COPY config.py config.py
+COPY messages_service/config.py config.py
 
 COPY ./messages_service /app/messages_service
 

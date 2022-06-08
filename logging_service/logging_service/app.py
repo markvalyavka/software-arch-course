@@ -1,7 +1,10 @@
+import os
+
 from flask import Flask
 
 from logging_service.logging import logging
 from logging_service.hazelcast import hz
+from logging_service.consul_api import c
 
 
 def init_app():
@@ -10,6 +13,14 @@ def init_app():
 
     # load config
     app.config.from_object('logging_service.config.DebugConfig')
+
+    # consul
+    c.init_app(app)
+    c.register_service(
+        ip=c.get_host_ip(),
+        port=5002,
+        service_id=os.environ['SERVICE_ID']
+    )
 
     # init apps
     hz.init_app(app)
