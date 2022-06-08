@@ -1,4 +1,4 @@
-# software-arch-course
+# software-arch-course | micro_consul
 
 
 ### watch demo on YT -> [https://youtu.be/6l2tjHNkuFg](https://www.youtube.com/watch?v=aRjiZe43jWg&ab_channel=%D0%9C%D0%B0%D1%80%D0%BA%D1%96%D1%8F%D0%BD%D0%92%D0%B0%D0%BB%D1%8F%D0%B2%D0%BA%D0%B0)
